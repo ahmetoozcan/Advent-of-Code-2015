@@ -29,10 +29,7 @@ void toggle(int lightsTemp[][1000], int coordinates[])
     {
         for (int j = coordinates[1]; j <= coordinates[3]; j++)
         {
-            if (lightsTemp[i][j] == 0)
-                lightsTemp[i][j] = 1;
-            else
-                lightsTemp[i][j] = 0;
+            lightsTemp[i][j] += 2;
         }
     }
 }
@@ -43,7 +40,7 @@ void turnOn(int lightsTemp[][1000], int coordinates[])
     {
         for (int j = coordinates[1]; j <= coordinates[3]; j++)
         {
-            lightsTemp[i][j] = 1;
+            lightsTemp[i][j] += 1;
         }
     }
 }
@@ -54,7 +51,8 @@ void turnOff(int lightsTemp[][1000], int coordinates[])
     {
         for (int j = coordinates[1]; j <= coordinates[3]; j++)
         {
-            lightsTemp[i][j] = 0;
+            if (lightsTemp[i][j] != 0)
+                lightsTemp[i][j] -= 1;
         }
     }
 }
@@ -88,15 +86,16 @@ int main(int argc, char const *argv[])
             turnOff(lights, coordinates);
     }
 
+    int sum = 0;
+
     for (int i = 0; i < 1000; i++)
     {
         for (int j = 0; j < 1000; j++)
         {
-            if (lights[i][j] == 1)
-                count++;
+            sum += lights[i][j];
         }
     }
 
-    cout << count;
+    cout << sum;
     return 0;
 }
